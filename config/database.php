@@ -10,7 +10,7 @@ class Database
     private $db = "mms";
     private $port = "3306";
     private $user = "root";
-    private $pass = "admin@123+";
+    private $pass = "";
     private $charset = "utf8";
     private $pdo;
 

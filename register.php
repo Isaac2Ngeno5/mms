@@ -7,127 +7,124 @@ $pdo = $db->getConnection();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>QET - Marketing Management System</title>
-    <link rel="stylesheet" type="text/css" href="font/roboto/roboto.css">
-    <link rel="stylesheet" type="text/css" href="font/material/material-icons.css">
 
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Manifest file-->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Title Page-->
+    <title>Register</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="css/font-face.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/theme.css" rel="stylesheet" media="all">
 
 </head>
-<body>
-<main class="container ">
-<section id="reg-page" class="form-page">
-<h1 class="display-4 text-center capitalize">Add User</h1>
-    <form action="" method="post" role="form">
-        <?php
-        //executes only if submit is clicked
-            if(isset($_POST["register"])){
-                //declare input data
-                $username = sanitize($_POST["username"]);//sanitize the user input
-                $name = sanitize($_POST['name']);
-                $email = sanitize($_POST['email']);
-                $role = sanitize($_POST['role']);
-                $password = $_POST["password"];
-                $confirmPassword = $_POST["confirmPassword"];
 
-                //simple validation checks
-                if(empty($username)){
-                    echo "<div class='alert alert-info'>please enter username</div>";
-                }elseif(empty($name)){
-                    echo "<div class='alert alert-info'>please enter Name</div>";
-                }elseif(empty($email)){
-                    echo "<div class='alert alert-info'>Please enter email</div>";
-                }elseif(empty($role)){
-                    echo "<div class='alert alert-info'>Please select role</div>";
-                }elseif(empty($password)){
-                    echo "<div class='alert alert-info'>Please enter password</div>";
-                }elseif(empty($confirmPassword)){
-                    echo "<div class='alert alert-info'>Please enter password confirmation</div>";
-                }elseif($confirmPassword !== $password){
-                    echo "<div class='alert alert-info'>Please ensure the passwords match</div>";
-                }
+<body class="animsition">
+    <div class="page-wrapper">
+        <div class="page-content--bge5">
+            <div class="container">
+                <div class="login-wrap">
+                    <div class="login-content">
+                        <div class="login-logo">
+                            <a href="#">
+                                <img src="images/icon/logo.png" alt="CoolAdmin">
+                            </a>
+                        </div>
+                        <div class="login-form">
+                            <form action="" method="post">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input class="au-input au-input--full" type="text" name="username" placeholder="Username">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
+                                </div>
+                                <div class="login-checkbox">
+                                    <label>
+                                        <input type="checkbox" name="aggree">Agree the terms and policy
+                                    </label>
+                                </div>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">register</button>
+                                <!-- <div class="social-login-content">
+                                    <div class="social-button">
+                                        <button class="au-btn au-btn--block au-btn--blue m-b-20">register with facebook</button>
+                                        <button class="au-btn au-btn--block au-btn--blue2">register with twitter</button>
+                                    </div>
+                                </div> -->
+                            </form>
+                            <div class="register-link">
+                                <p>
+                                    Already have account?
+                                    <a href="login.html">Sign In</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                //perform action on input 
-                if(!empty($username) &&
-                    !empty($password) &&
-                    !empty($name) &&
-                    !empty($role) &&
-                    !empty($email) &&
-                    !empty($confirmPassword) &&
-                    $confirmPassword == $password){
-                        //query to check if username exists
-                    $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username`=?");
-                    $statement->execute(array($username));
-                    $result = $statement->rowCount();
+    </div>
 
-                    if ($result > 0) {
-                        echo "<div class=\"alert alert-warning\"><strong>Warning!</strong> Username already exists.</div>";
-                    } else {
-                        //insert user input to database
-                        $statement = $pdo->prepare("INSERT INTO `users`(`username`, `name`, `email`, `role`, `password`) VALUES (?, ?, ?, ?, ?)");
-                        $password = password_hash($password, PASSWORD_DEFAULT);
-                        $qry = $statement->execute(array($username, $name, $email, $role,  $password));
+    <!-- Jquery JS-->
+    <script src="vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="vendor/slick/slick.min.js">
+    </script>
+    <script src="vendor/wow/wow.min.js"></script>
+    <script src="vendor/animsition/animsition.min.js"></script>
+    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="vendor/select2/select2.min.js">
+    </script>
 
-                        if ($qry) {
-                            header("Location: index.php");
-                            exit;
-                        } else {
-                            echo "<div class=\"alert alert-warning\"><strong>Warning!</strong> failed to save user.</div>";
-                        }
-                    }
+    <!-- Main JS-->
+    <script src="js/main.js"></script>
+    
+    <!-- Custom JS-->
+    <script src="js/app.js"></script>
 
-                }
-                
-            }
-
-            function sanitize($data){
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            }
-        ?>
-        <div class="form-group">
-            <label for="username" id="username">Username</label>
-            <input type="text" name="username" class="form-control" id="username" placeholder="Enter Username">
-        </div>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name">
-        </div>
-        <div class="form-group">
-            <label for="email" id="email">Email</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-            <label for="role" id="role">Select Role</label>
-            <select name="role" id="role" class="form-control">
-                <option value="admin">Admin</option>
-                <option value="member">User</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="password" id="password">Password</label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password">
-        </div>
-        <div class="form-group">
-            <label for="confirm-password" id="confirm-password">Confirm Password</label>
-            <input type="password" name="confirmPassword" class="form-control" id="confirm-password" placeholder="Enter Password Confirmation">
-        </div>
-        <div class="form-group">
-            <input type="submit" name="register" class=" btn btn-primary" value="Sign Up">
-        </div>
-    </form>
-</section>
-</main>
-
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/app.js"></script>
 </body>
+
 </html>
+<!-- end document-->
