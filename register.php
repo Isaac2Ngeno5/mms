@@ -85,7 +85,8 @@ $pdo = $db->getConnection();
                                                     $statement = $pdo->prepare("INSERT INTO `users`(`username`, `name`, `email`, `role`, `password`) VALUES (?, ?, ?, ?, ?)");
                                                     $hash = password_hash($password, PASSWORD_DEFAULT);
                                                     if($statement->execute(array("", $name, $email, "member", $hash))){
-                                                        
+                                                        $_SESSION['user'] = $email;
+                                                        header("location:index.php");
                                                         echo '<div class="alert alert-success">User registration successful</div>';
                                                     }else{
                                                         echo '<div class="alert alert-info">User registration failed</div>';

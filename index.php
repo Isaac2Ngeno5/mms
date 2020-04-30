@@ -1,6 +1,10 @@
 <?php
 require_once "config/database.php";
+session_start();
 
+if(!isset($_SESSION['user'])){
+    header('Location:login.php');
+}
 //establish a database connection
 $db = new Database();
 $pdo = $db->getConnection();
@@ -437,7 +441,7 @@ $pdo = $db->getConnection();
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
+                                                <a href="logout.php">
                                                     <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>
