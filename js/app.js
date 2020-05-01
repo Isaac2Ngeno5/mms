@@ -1,8 +1,20 @@
 $(document).ready(function(){
     'use strict';
-    if('serviceWorker' in navigator){
-        navigator.serviceWorker.register('./service-worker.js')
-          .then(reg => console.log('service worker registered'))
-          .catch(err => console.log('service worker not registered', err));
-      }
+    $('#lead').click(function (event) {
+        event.preventDefault();
+        console.log("lead clicked");
+        getleads();
+    });
+
+
+    function getleads() {
+        $.ajax({
+            url:'leads/bridge.php',
+            method: 'POST',
+            data:{id:1},
+            success: function (data) {
+                $('#page-content').html(data);
+            }
+        })
+    }
 });
