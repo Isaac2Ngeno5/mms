@@ -3,11 +3,18 @@ $(document).ready(function(){
     $('#lead').click(function (event) {
         event.preventDefault();
         console.log("lead clicked");
-        getleads();
+        getLeads();
+    });
+
+    $('#add-lead').click(function (e) {
+        e.preventDefault();
+        console.log("add lead clicked");
+        getAddLead();
     });
 
 
-    function getleads() {
+
+    function getLeads() {
         $.ajax({
             url:'leads/bridge.php',
             method: 'POST',
@@ -15,6 +22,17 @@ $(document).ready(function(){
             success: function (data) {
                 $('#page-content').html(data);
             }
-        })
+        });
+    }
+
+    function getAddLead() {
+        $.ajax({
+            url:'leads/bridge.php',
+            method: 'POST',
+            data:{id:2},
+            success: function (data) {
+                $('#page-content').html(data);
+            }
+        });
     }
 });

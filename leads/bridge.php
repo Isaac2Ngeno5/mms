@@ -20,6 +20,9 @@ if ($statement->execute(array($_SESSION["user"]))) {
 $user_id = $result['id'];
 
 $id = $_POST['id'];
+?>
+    <script type="text/javascript" src="../js/app.js"></script>
+<?php
 
 switch ($id) {
     case 1:
@@ -27,7 +30,7 @@ switch ($id) {
                             <div class="col-md-12">
                                 <div class="overview-wrap">
                                     <h2 class="title-1">Leads</h2>
-                                    <button class="au-btn au-btn-icon au-btn--blue" id="add-lead">
+                                    <button class="au-btn au-btn-icon au-btn--blue" id="add-lead" onclick="getAddLead()">
                                         <i class="zmdi zmdi-plus"></i>add Lead
                                     </button>
                                 </div>
@@ -116,6 +119,57 @@ switch ($id) {
                             </div>
                         </div>
                         ';
+        break;
+    case 2:
+        echo '
+         <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Lead</strong> Form
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="" method="post" class="form-horizontal">
+                                            <div class="form-group">
+                                                <label for="name" class="form-control-label">Lead Name</label>
+                                                <input type="text" name="lead" class="form-control" id="name" placeholder="leads Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="date" class="form-control-label">Date</label>
+                                                <input type="date" name="date" class="form-control date" id="date" placeholder="09/09/19">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="contactName">Contact Name</label>
+                                                <input type="text" name="contactName" id="contactName" class="form-control" placeholder="Contact Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="contact">Phone Number</label>
+                                                <input type="tel" name="phone" id="contact" class="form-control" placeholder="Phone Number">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="invoice">Invoice</label>
+                                                <input type="number" name="invoice" id="invoice" class="form-control" placeholder="Ksh 0.00">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="address">Physical Address</label>
+                                                <input type="text" name="address" id="address" class="form-control" placeholder="Physical Address">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-dot-circle-o"></i> Submit
+                                        </button>
+                                        <button type="reset" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-ban"></i> Reset
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+        ';
         break;
     default:
         echo json_encode("invalid request");
