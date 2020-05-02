@@ -21,7 +21,7 @@ $user_id = $result['id'];
 
 $id = $_POST['id'];
 ?>
-    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
 <?php
 
 switch ($id) {
@@ -30,7 +30,7 @@ switch ($id) {
                             <div class="col-md-12">
                                 <div class="overview-wrap">
                                     <h2 class="title-1">Leads</h2>
-                                    <button class="au-btn au-btn-icon au-btn--blue" id="add-lead" onclick="getAddLead()">
+                                    <button class="au-btn au-btn-icon au-btn--blue" id="add-lead" >
                                         <i class="zmdi zmdi-plus"></i>add Lead
                                     </button>
                                 </div>
@@ -128,7 +128,7 @@ switch ($id) {
                                         <strong>Lead</strong> Form
                                     </div>
                                     <div class="card-body card-block">
-                                        <form action="" method="post" class="form-horizontal">
+                                        <form action="" id="add-lead-form" method="post" class="form-horizontal">
                                             <div class="form-group">
                                                 <label for="name" class="form-control-label">Lead Name</label>
                                                 <input type="text" name="lead" class="form-control" id="name" placeholder="leads Name">
@@ -142,12 +142,8 @@ switch ($id) {
                                                 <input type="text" name="contactName" id="contactName" class="form-control" placeholder="Contact Name">
                                             </div>
                                             <div class="form-group">
-                                                <label for="contact">Phone Number</label>
-                                                <input type="tel" name="phone" id="contact" class="form-control" placeholder="Phone Number">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="invoice">Invoice</label>
-                                                <input type="number" name="invoice" id="invoice" class="form-control" placeholder="Ksh 0.00">
+                                                <label for="phone">Phone Number</label>
+                                                <input type="tel" name="phone" id="phone" class="form-control" placeholder="Phone Number">
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email</label>
@@ -160,7 +156,7 @@ switch ($id) {
                                         </form>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary btn-sm">
+                                        <button type="submit" class="btn btn-primary btn-sm" id="save-lead">
                                             <i class="fa fa-dot-circle-o"></i> Submit
                                         </button>
                                         <button type="reset" class="btn btn-danger btn-sm">

@@ -12,7 +12,11 @@ $(document).ready(function(){
         getAddLead();
     });
 
-
+    $('#save-lead').click(function(e){
+        e.preventDefault();
+        console.log("save lead clicked");
+        saveNewLead();
+    });
 
     function getLeads() {
         $.ajax({
@@ -34,5 +38,41 @@ $(document).ready(function(){
                 $('#page-content').html(data);
             }
         });
+    }
+
+    function saveNewLead(){
+        var leadName = $('#name').val();
+        var date = $('#date').val();
+        var contactName = $('#contactName').val();
+        var phone = $('#phone').val();
+        var email = $('#email').val();
+        var address = $('#address').val();
+
+        if(leadName == '' || date == '' || contactName == '' || phone == '' ){
+            var errorMessage = `<div class="alert alert-info">Please fill all fields</div>`;
+            $(errorMessage).appendTo($('#add-lead-form'));
+            return ;
+        }
+
+        var data = {
+            leadName,
+            date,
+            contactName,
+            phone,
+            email,
+            address
+        };
+
+        data.id = 1;
+
+        $.ajax({
+            url:'leads/data.php',
+            method: 'POST',
+            data:data,
+            success: function (data) {
+                $('#page-content').html(data);
+            }
+        });
+
     }
 });
