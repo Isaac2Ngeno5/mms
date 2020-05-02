@@ -1,6 +1,6 @@
 <?php
 require_once "config/database.php";
-
+session_start();
 $db = new Database();
 $pdo = $db->getConnection();
 
@@ -58,9 +58,56 @@ $pdo = $db->getConnection();
                         </div>
                         <div class="login-form">
                             <form action="" method="post">
+                            <?php
+                                if(isset($_POST['register'])){
+                                    $name = $_POST['names'];
+                                    $email = $_POST['email'];
+                                    $password = $_POST['password'];
+                                    $confirm_password = $_POST['confirm_password'];
+                                    $agree = $_POST['agree'];
+
+                                    if(isset($agree)){
+                                        // data sanitation
+                                        if(!empty($name) &&
+                                        !empty($email) &&
+                                        !empty($password) && 
+                                        !empty($confirm_password)){
+                                            // password validation
+                                            if($confirm_password !== $password){
+                                                echo '<div class="alert alert-info">Please ensure passwords match</div>';
+                                            }else{
+                                                // check for duplication
+                                                $statement = $pdo->prepare("SELECT * FROM `users` WHERE `email`=?");
+                                                $statement->execute(array($email));
+                                                if($statement->rowCount() > 0){
+                                                    echo '<div class="alert alert-info">User already exists</div>';
+                                                }else{
+                                                    $statement = $pdo->prepare("INSERT INTO `users`(`username`, `name`, `email`, `role`, `password`) VALUES (?, ?, ?, ?, ?)");
+                                                    $hash = password_hash($password, PASSWORD_DEFAULT);
+                                                    if($statement->execute(array("", $name, $email, "member", $hash))){
+                                                        $_SESSION['user'] = $email;
+                                                        header("location:index.php");
+                                                        echo '<div class="alert alert-success">User registration successful</div>';
+                                                    }else{
+                                                        echo '<div class="alert alert-info">User registration failed</div>';
+                                                    }
+                                                }
+                                            }
+
+                                        }else{
+                                            echo '<div class="alert alert-info">Please fill all the fields</div>';
+                                        }
+
+                                    }else{
+                                        echo '<div class="alert alert-info">Please agree to terms and conditions</div>';
+                                    }
+
+
+                                }
+                            ?>
                                 <div class="form-group">
-                                    <label>Username</label>
-                                    <input class="au-input au-input--full" type="text" name="username" placeholder="Username">
+                                    <label>Full Names </label>
+                                    <input class="au-input au-input--full" type="text" name="names" placeholder="Full Name">
                                 </div>
                                 <div class="form-group">
                                     <label>Email Address</label>
@@ -70,12 +117,16 @@ $pdo = $db->getConnection();
                                     <label>Password</label>
                                     <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
                                 </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input class="au-input au-input--full" type="password" name="confirm_password" placeholder="Confirm Password">
+                                </div>
                                 <div class="login-checkbox">
                                     <label>
-                                        <input type="checkbox" name="aggree">Agree the terms and policy
+                                        <input type="checkbox" name="agree">Agree the terms and policy
                                     </label>
                                 </div>
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">register</button>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit" name="register">register</button>
                                 <!-- <div class="social-login-content">
                                     <div class="social-button">
                                         <button class="au-btn au-btn--block au-btn--blue m-b-20">register with facebook</button>
